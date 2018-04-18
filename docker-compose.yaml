@@ -1,0 +1,33 @@
+version: '3'
+services:
+  php:
+    build:
+      dockerfile: docker/Dockerfile
+      context: ./
+    image: acmos_php:1.0.0
+    container_name: acmos_php
+    ports:
+      - 8888:80
+      - 9999:9000
+    volumes:
+      - ./src:/var/www/html
+#    environment:
+#      XDEBUG_CONFIG: remote_host={{YOUR_IP_ADDRESS}}
+    links:
+      - oracle
+  oracle:
+    container_name: acmos_oracle
+    image: sath89/oracle-12c:latest
+    volumes:
+      - ./docker/database:/u01/app/oracle
+    ports:
+      - 1521:1521
+      - 8080:8080
+      - 5500:5500
+    environment:
+      - USER=system
+      - PASS=oracle
+      - HOST=localhost
+      - PORT=1521
+      - SID=xe
+      - HTTP_PORT=8080

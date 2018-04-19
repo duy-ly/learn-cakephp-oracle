@@ -9,6 +9,5 @@
 - Open Powershelland run command
 
 ```
-	docker image load -i sath89-oracle-12c.docker
-	docker image load -i acmos_php.docker
+	docker-compose up -d
 ```
